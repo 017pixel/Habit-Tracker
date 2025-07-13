@@ -298,9 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       habit.name.toLowerCase().includes('cycl') ? 'cycling' :
                       habit.name.toLowerCase().includes('read') ? 'reading' : 'default';
 
-    const iconContent = habit.name.toLowerCase().includes('shop') ? '🛍️' :
-                        habit.name.toLowerCase().includes('cycl') ? '🚲' :
-                        habit.name.toLowerCase().includes('read') ? '📚' : '🎯';
+    const iconContent = habit.name.toLowerCase().includes('shop') ? '🛍️' : habit.name.toLowerCase().includes('cycl') ? '🚲' : habit.name.toLowerCase().includes('read') ? '📚' : '🚩';
     
     const currentStreak = calculateStreak(habitEntries, habit.repeatType);
     
