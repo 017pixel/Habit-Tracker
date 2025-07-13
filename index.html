@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-date"></div>
+            <button class="icon-btn" id="settings-btn" aria-label="Open settings">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+        </header>
+
+        <main class="app-main">
+            <div class="greeting-section">
+                <h1 data-lang-key="greeting">Let's make a<br>habits together 🙌</h1>
+            </div>
+
+            <div class="progress-card">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="84" height="84" viewBox="0 0 84 84">
+                        <circle class="progress-ring__bg" stroke-width="8" fill="transparent" r="38" cx="42" cy="42"/>
+                        <circle class="progress-ring__circle" stroke-width="8" fill="transparent" r="38" cx="42" cy="42"/>
+                    </svg>
+                    <div class="progress-percentage">0%</div>
+                </div>
+                <div class="progress-text">
+                    <div class="progress-title" data-lang-key="progressTitle">Your daily goals almost done! 🔥</div>
+                    <div class="progress-count" data-lang-key="progressCount">0 of 0 completed</div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 data-lang-key="todayHabits">Today Habits</h2>
+                <button class="icon-btn small" id="filter-btn" aria-label="Filter habits">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                </button>
+            </div>
+
+            <div id="habits-container">
+                <!-- Habit Cards will be injected here by JS -->
+            </div>
+
+        </main>
+
+        <div class="fab-container">
+             <button id="show-add-habit-popup-btn" class="fab" data-lang-key="newHabitBtn">New Habits +</button>
+        </div>
+    </div>
+
+    <!-- Popups and Overlays -->
+    <div id="backdrop" class="hidden"></div>
+
+    <div id="add-habit-popup" class="popup">
+        <div class="popup-header">
+            <h2 data-lang-key="newHabitTitle">New Habit</h2>
+            <button class="close-popup-btn">×</button>
+        </div>
+        <div class="popup-content">
+            <form id="add-habit-form">
+                <input type="text" id="habit-name" data-lang-placeholder="habitNamePlaceholder" required>
+                <textarea id="habit-description" data-lang-placeholder="habitDescPlaceholder"></textarea>
+                <select id="habit-repeat" required>
+                    <option value="daily" data-lang-key="repeatDaily">Repeat every day</option>
+                    <option value="every2days" data-lang-key="repeat2Days">Repeat every 2 days</option>
+                    <option value="every3days" data-lang-key="repeat3Days">Repeat every 3 days</option>
+                    <option value="weekly" data-lang-key="repeatWeekly">Repeat every week</option>
+                </select>
+                <button type="submit" class="primary-btn" data-lang-key="addHabitSubmit">Add Habit</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="settings-popup" class="popup">
+        <div class="popup-header">
+            <h2 data-lang-key="settingsTitle">Settings</h2>
+            <button class="close-popup-btn">×</button>
+        </div>
+        <div class="popup-content">
+            <div class="setting-item">
+                <label data-lang-key="theme">Light/Dark Mode</label>
+                <label class="switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label for="language-select" data-lang-key="language">Language</label>
+                <select id="language-select">
+                    <option value="de">Deutsch</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            <hr>
+            <button id="delete-data-btn" class="danger-btn" data-lang-key="deleteData">Delete All Data</button>
+        </div>
+    </div>
+
+    <div id="toast-notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
